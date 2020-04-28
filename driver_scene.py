@@ -140,6 +140,11 @@ def main(argv):
 #     skydata, skyhdr = fits.getdata(os.path.join(out_dir_0,skyfile), header=True)
     psfdata, psfhdr = fits.getdata(psffile, header=True)
     skydata, skyhdr = fits.getdata(skyfile, header=True)
+    
+    # change data type to float64 (NJC 2020-04-28)
+    psfdata = np.array(psfdata).astype(float)
+    skydata = np.array(skydata).astype(float)
+    
     skydata = skydata / skydata.sum()  # normalize sky data total to unity!
     skydata = skydata * countrate
     if verbose:
